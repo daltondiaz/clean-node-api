@@ -4,7 +4,7 @@ import { InvalidParamError } from '../errors/invalid-param-error'
 import { EmailValidator } from '../protocols/email-validator'
 
 interface SutTypes {
-  sut: SignUpController,
+  sut: SignUpController
   emailValidatorStub: EmailValidator
 }
 
