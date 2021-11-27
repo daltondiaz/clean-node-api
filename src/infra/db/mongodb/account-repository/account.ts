@@ -4,11 +4,11 @@ import { AddAccountModel } from '../../../../domain/usecases/add-account'
 import { MongoHelper } from '../helpers/mongo-helpers'
 
 export class AccountMongoRepository implements AddAccountRepository {
-  async add(accountData: AddAccountModel): Promise<AccountModel> {
-    const accountCollection = MongoHelper.getConnection('accounts')
+  async add (accountData: AddAccountModel): Promise<AccountModel> {
+    const accountCollection = await MongoHelper.getConnection('accounts')
     const result = await accountCollection.insertOne(accountData)
-    const { insertedId: id} = result
-    const accountById = await accountCollection.findOne({_id: id})
+    const { insertedId: id } = result
+    const accountById = await accountCollection.findOne({ _id: id })
     return MongoHelper.map(accountById)
   }
 }
