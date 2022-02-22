@@ -1,4 +1,4 @@
-import { AccountModel } from '../models/account'
+import { AccountModel } from '@/domain/models/account'
 
 export interface LoadAccountByToken {
   // eslint-disable-next-line @typescript-eslint/method-signature-style
