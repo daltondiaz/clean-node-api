@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+import { LoadSurveysRepository, SurveyModel } from './db-load-surveys-protocols'
 import { DbLoadSurveys } from './db-load-surveys'
-import { LoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository'
-import { SurveyModel } from '@/domain/models/survey'
 import MockDate from 'mockdate'
 
 const makeFakeSurveys = (): SurveyModel[] => {
