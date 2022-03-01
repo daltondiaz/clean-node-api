@@ -9,22 +9,26 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 > ## APIs previstas para esse treinamento:
 
 1. [Cadastro](./requirements/signup.md)
-1. [Login](./requirements/login.md)
-1. [Criar enquete](./requirements/add-survey.md)
-1. [Responder enquete](./requirements/answer-survey.md)
-1. [Resultado da enquete](./requirements/survey-result.md)
+2. [Login](./requirements/login.md)
+3. [Criar enquete](./requirements/add-survey.md)
+4. [Listar enquetes](./requirements/load-surveys.md)
+4. [Responder enquete](./requirements/answer-survey.md)
+5. [Resultado da enquete](./requirements/survey-result.md)
 
 > ## Princípios aplicados:
+
 * Single Responsibility Principle (SRP)
 * Open Closed Principle (OCP)
 * Liskov Substitution Principle (LSP)
 * Interface Segregation Principle (ISP)
 * Dependency Inversion Principle (DIP)
 * Don't Repeat Yourself (DRY)
+* You Aren't Gonna Need It (YAGNI)
 * Composition Over Inheritance
 * Small commits
 
 > ## Design Patterns aplicados:
+
 * Factory
 * Adapter
 * Composite
@@ -34,6 +38,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Composition Root
 
 > ## Metodologias/designs utilizados:
+
 * TDD
 * Clean Architecture
 * DDD
@@ -41,6 +46,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * GitFlow
 
 > ## Bibliotecas e ferramentas utilizadas:
+
 * Typescript
 * Git
 * Docker
@@ -58,6 +64,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Sucrase
 
 > ## Features abordadas:
+
 * Atalhos no Git
 * Log de Erro
 * Segurança (Hashing, Encryption e Encoding)
