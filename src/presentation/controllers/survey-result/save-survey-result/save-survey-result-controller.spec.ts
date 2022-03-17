@@ -19,7 +19,7 @@ const makeFakeSurvey = (): SurveyModel => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
-    answer: 'any_anwser'
+    answer: 'any_answer'
   }],
   date: new Date()
 })
