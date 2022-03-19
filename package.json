@@ -15,12 +15,8 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "pre-commit": "lint-staged",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
+    "test:ci": "npm test -- --coverage",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
