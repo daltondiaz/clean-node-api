@@ -5,7 +5,7 @@ import { sign } from 'jsonwebtoken'
 import request from 'supertest'
 import { Collection } from 'mongodb'
 
-let surveyCollection: Collection
+let surveysCollections: Collection
 let accountCollection: Collection
 
 const makeAccessToken = async (): Promise<string> => {
@@ -36,8 +36,8 @@ describe('Survey Routes', () => {
   })
 
   beforeEach(async () => {
-    surveyCollection = await MongoHelper.getConnection('survey')
-    await surveyCollection.deleteMany({})
+    surveysCollections = await MongoHelper.getConnection('surveys')
+    await surveysCollections.deleteMany({})
     accountCollection = await MongoHelper.getConnection('accounts')
     await accountCollection.deleteMany({})
   })
@@ -54,7 +54,7 @@ describe('Survey Routes', () => {
 
     test('Should return 200 on save survey result with accessToken', async () => {
       const accesToken = await makeAccessToken()
-      const res = await surveyCollection.insertOne({
+      const res = await surveysCollections.insertOne({
         question: 'Question',
         answers: [{
           answer: 'Answer 1',
