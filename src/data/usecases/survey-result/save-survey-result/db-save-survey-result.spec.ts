@@ -1,35 +1,16 @@
 import { DbSaveSurveyResult } from './db-save-survey-result'
 import MockDate from 'mockdate'
-import { SurveyResultModel, SaveSurveyResultParams, SaveSurveyResultRepository } from './db-save-survey-result-protocols'
-
-const makeFakeSurveyResultData = (): SaveSurveyResultParams => ({
-
-  accountId: 'any_account_id',
-  surveyId: 'any_survey_id',
-  answer: 'any_answer',
-  date: new Date()
-})
-
-const makeFakeSurveyResult = (): SurveyResultModel => Object.assign({}, makeFakeSurveyResultData(), {
-  id: 'any_id'
-})
+import { SaveSurveyResultRepository } from './db-save-survey-result-protocols'
+import { mockSaveSurveyResultRepository } from '@/data/test/mock-db-survey-result'
+import { mockSaveSurveyResultParams, mockSurveyResultModel } from '@/domain/test'
 
 type SutTypes = {
   sut: DbSaveSurveyResult
   saveSurveyResultRepositoryStub: SaveSurveyResultRepository
 }
 
-const makeSaveSurveyResultRepository = (): SaveSurveyResultRepository => {
-  class SaveSurveyResultRepositoryStub implements SaveSurveyResultRepository {
-    async save (surveyData: SaveSurveyResultParams): Promise<SurveyResultModel> {
-      return await new Promise(resolve => resolve(makeFakeSurveyResult()))
-    }
-  }
-  return new SaveSurveyResultRepositoryStub()
-}
-
 const makeSut = (): SutTypes => {
-  const saveSurveyResultRepositoryStub = makeSaveSurveyResultRepository()
+  const saveSurveyResultRepositoryStub = mockSaveSurveyResultRepository()
   const sut = new DbSaveSurveyResult(saveSurveyResultRepositoryStub)
   return {
     sut,
@@ -49,7 +30,7 @@ describe('DbSaveSurveyResult UseCase', () => {
   test('Should call SaveSurveyRepository with correct values', async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut()
     const saveSpy = jest.spyOn(saveSurveyResultRepositoryStub, 'save')
-    const surveyResultData = makeFakeSurveyResultData()
+    const surveyResultData = mockSaveSurveyResultParams()
     await sut.save(surveyResultData)
     expect(saveSpy).toHaveBeenCalledWith(surveyResultData)
   })
@@ -57,13 +38,13 @@ describe('DbSaveSurveyResult UseCase', () => {
   test('Should throw if AddSurveyRepository throws', async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut()
     jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
-    const promise = sut.save(makeFakeSurveyResultData())
+    const promise = sut.save(mockSaveSurveyResultParams())
     await expect(promise).rejects.toThrow()
   })
 
   test('Should return SurveyResult on success', async () => {
     const { sut } = makeSut()
-    const saveResultData = await sut.save(makeFakeSurveyResultData())
-    expect(saveResultData).toEqual(makeFakeSurveyResult())
+    const saveResultData = await sut.save(mockSaveSurveyResultParams())
+    expect(saveResultData).toEqual(mockSurveyResultModel())
   })
 })

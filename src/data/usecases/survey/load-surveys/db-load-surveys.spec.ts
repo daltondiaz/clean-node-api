@@ -1,45 +1,17 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { LoadSurveysRepository, SurveyModel } from './db-load-surveys-protocols'
+import { LoadSurveysRepository } from './db-load-surveys-protocols'
 import { DbLoadSurveys } from './db-load-surveys'
 import MockDate from 'mockdate'
-
-const makeFakeSurveys = (): SurveyModel[] => {
-  return [{
-    id: 'any_id',
-    question: 'any_question',
-    answers: [{
-      image: 'any_image',
-      answer: 'any_anwser'
-    }],
-    date: new Date()
-  },
-  {
-    id: 'other_id',
-    question: 'other_question',
-    answers: [{
-      image: 'other_image',
-      answer: 'other_anwser'
-    }],
-    date: new Date()
-  }]
-}
+import { mockLoadSurveysRepository } from '@/data/test'
+import { mockSurveyModels } from '@/domain/test'
 
 type SutTypes = {
   sut: DbLoadSurveys
   loadSurveysRepositoryStub: LoadSurveysRepository
 }
 
-const makeLoadSurveysRepository = (): LoadSurveysRepository => {
-  class LoadSurveysRepositoryStub implements LoadSurveysRepository {
-    async loadAll (): Promise<SurveyModel[]> {
-      return await new Promise(resolve => resolve(makeFakeSurveys()))
-    }
-  }
-  return new LoadSurveysRepositoryStub()
-}
-
 const makeSut = (): SutTypes => {
-  const loadSurveysRepositoryStub = makeLoadSurveysRepository()
+  const loadSurveysRepositoryStub = mockLoadSurveysRepository()
   const sut = new DbLoadSurveys(loadSurveysRepositoryStub)
   return {
     sut,
@@ -66,7 +38,7 @@ describe('DbLoadSurveys', () => {
   test('Should return a list of surveys on success', async () => {
     const { sut } = makeSut()
     const surveys = await sut.load()
-    expect(surveys).toEqual(makeFakeSurveys())
+    expect(surveys).toEqual(mockSurveyModels())
   })
 
   test('Should throw if LoadSurveysRepository throws', async () => {
