@@ -7,7 +7,7 @@ import { mockAddAccount, mockValidation } from '@/presentation/test'
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
     async auth (authentication: AuthenticationParams): Promise<string> {
-      return await new Promise(resolve => resolve('any_token'))
+      return await Promise.resolve('any_token')
     }
   }
   return new AuthenticationStub()
@@ -71,7 +71,7 @@ describe('SignUp Controller', () => {
 
   test('Should return 403 AddAccount returns null', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise(resolve => resolve(null)))
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(Promise.resolve(null))
     const httpResponde = await sut.handle(makeFakeRequest())
     expect(httpResponde).toEqual(forbideen(new EmailInUseError()))
   })
