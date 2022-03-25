@@ -15,7 +15,7 @@ export const mockAddAccountRepository = (): AddAccountRepository => {
   return new AddAccountRepositoryStub()
 }
 
-export const mockFakeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
+export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel> {
       return await new Promise(resolve => resolve(mockAccountModel()))
