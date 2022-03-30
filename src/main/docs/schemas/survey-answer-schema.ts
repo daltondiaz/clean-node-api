@@ -1,18 +1,11 @@
 export const surveyAnswerSchema = {
   type: 'object',
   properties: {
-    id: {
+    imagem: {
       type: 'string'
     },
-    question: {
+    answer: {
       type: 'string'
-    },
-    date: {
-      type: 'string'
-    },
-    answers: {
-      type: 'array',
-      items: '#/schemas/survey-answer'
     }
   }
 }
