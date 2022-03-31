@@ -5,7 +5,7 @@ import {
   notFound,
   forbidden
 } from './components/'
-import { apiKeyAuthSchema } from './schemas/'
+import { apiKeyAuthSchema } from './schemas/api-key-auth-schema'
 
 export default {
   securitySchemes: {
