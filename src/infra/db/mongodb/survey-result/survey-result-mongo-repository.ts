@@ -103,7 +103,6 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
       .build()
     // @ts-expect-error
     const surveyResult: SurveyResultModel[] = await surveyResultCollection.aggregate(query).toArray()
-    console.log(surveyResult)
     return surveyResult?.length ? surveyResult[0] : null
   }
 }
