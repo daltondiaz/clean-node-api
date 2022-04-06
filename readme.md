@@ -12,8 +12,8 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 2. [Login](./requirements/login.md)
 3. [Criar enquete](./requirements/add-survey.md)
 4. [Listar enquetes](./requirements/load-surveys.md)
-4. [Responder enquete](./requirements/answer-survey.md)
-5. [Resultado da enquete](./requirements/survey-result.md)
+5. [Responder enquete](./requirements/save-survey-result.md)
+6. [Resultado da enquete](./requirements/load-survey-result.md)
 
 > ## Princípios aplicados:
 
@@ -24,10 +24,12 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Dependency Inversion Principle (DIP)
 * Don't Repeat Yourself (DRY)
 * You Aren't Gonna Need It (YAGNI)
+* Separation of Concerns (SOC)
+* Keep It Simple, Silly (KISS)
 * Composition Over Inheritance
 * Small commits
 
-> ## Design Patterns aplicados:
+> ## Design Patterns:
 
 * Factory
 * Adapter
@@ -36,8 +38,11 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Dependency Injection
 * Abstract Server
 * Composition Root
+* Proxy
+* Builder
+* Singleton
 
-> ## Metodologias/designs utilizados:
+> ## Metodologias/designs:
 
 * TDD
 * Clean Architecture
@@ -45,7 +50,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Conventional Commits
 * GitFlow
 
-> ## Bibliotecas e ferramentas utilizadas:
+> ## Bibliotecas e ferramentas:
 
 * Typescript
 * Git
@@ -63,7 +68,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Standard Javascript Style
 * Sucrase
 
-> ## Features abordadas:
+> ## Features:
 
 * Atalhos no Git
 * Log de Erro
