@@ -23,4 +23,11 @@ describe('DbLoadSurveyResult UseCase', () => {
     await sut.load('any_survey_id')
     expect(loadBySurveyIdSpy).toHaveBeenCalledWith('any_survey_id')
   })
+
+  test('Should throw if AddSurveyRepository throws', async () => {
+    const { sut, loadSurveyResultRepositoryStub } = makeSut()
+    jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    const promise = sut.load('any_survey_id')
+    await expect(promise).rejects.toThrow()
+  })
 })
