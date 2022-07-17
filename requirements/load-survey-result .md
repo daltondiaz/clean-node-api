@@ -2,8 +2,8 @@
 
 > ## Caso de sucesso:
 
-1. ⛔️ Recebe uma requisição do tipo **GET** na rota **/api/surveys/{survey_id}/results**
-2. ⛔️ Valida se a requisição foi feita por um **usuário**
+1. ✅ Recebe uma requisição do tipo **GET** na rota **/api/surveys/{survey_id}/results**
+2. ✅ Valida se a requisição foi feita por um **usuário**
 3. ⛔️ Retorna **200** com os dados do resultdo da enquete
 
 > ## Exceções:
