@@ -2,8 +2,7 @@
 import { LoadSurveyResultRepository } from '@/data/usecases/load-survey-result/db-load-survey-result-protocols'
 import { SaveSurveyResultParams, SaveSurveyResultRepository, SurveyResultModel } from '@/data/usecases/survey-result/save-survey-result/db-save-survey-result-protocols'
 import { ObjectId } from 'mongodb'
-import { MongoHelper } from '../helpers/mongo-helpers'
-import { QueryBuilder } from '../helpers/query-builder'
+import { MongoHelper, QueryBuilder } from '../helpers'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
   async save (data: SaveSurveyResultParams): Promise<void> {
@@ -179,6 +178,6 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
       .build()
     // @ts-expect-error
     const surveyResult: SurveyResultModel[] = await surveyResultCollection.aggregate(query).toArray()
-    return surveyResult?.length ? surveyResult[0] : null
+    return surveyResult.length ? surveyResult[0] : null
   }
 }
