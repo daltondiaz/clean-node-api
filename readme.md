@@ -49,6 +49,11 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * DDD
 * Conventional Commits
 * GitFlow
+* Modular Design
+* Use Cases
+* Continuous Integration
+* Continuous Delivery
+* Continuous Deployment
 
 > ## Bibliotecas e ferramentas:
 
@@ -67,21 +72,57 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Eslint
 * Standard Javascript Style
 * Sucrase
+* Nodemon
+* Rimraf
+* In-Memory MongoDb Server
+* MockDate
+* Module-Alias
 
-> ## Features:
 
-* Atalhos no Git
-* Log de Erro
-* Segurança (Hashing, Encryption e Encoding)
-* CORS
-* Middlewares
-* Testes de Integração
+> ## Features do Git
+
+* Alias
+* Log Personalizado
+* Branch
+* Reset
+* Amend
+* Tag
+* Stash
+* Rebase
+* Merge
+
+> ## Features do Typescript
+
+* POO Avançado
+* Interface
+* TypeAlias
+* Utility Types
+* Modularização de Paths
+* Build
+* Deploy
+* Uso de Breakpoints
+
+> ## Features de Testes
+
 * Testes Unitários
+* Testes de Integração
 * Cobertura de Testes
+* Test Doubles
 * Mocks
 * Stubs
 * Spies
-* Deploy com Typescript
-* Deploy no Heroku
-* Uso de breakpoints no Typescript
-* Uso correto de tags no Git
+* Fakes
+
+> ## Features do MongoDb
+
+* Connect e Reconnect
+* Collections
+* InsertOne e InserMany
+* Find, FindOne e FindOneAndUpdate
+* DeleteMany
+* UpdateOne
+* Aggregation (Match, Group, Unwind, Lookup, AddFields, Project, Sort)
+* ObjectId
+* Upsert e ReturnOriginal
+* Push, Divide, Multiply, ArrayElemAt, Cond, Sum
+* Filter, Map, Reduce, MergeObjects, ConcatArrays

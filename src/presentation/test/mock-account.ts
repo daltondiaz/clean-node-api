@@ -3,31 +3,33 @@ import { AddAccount, AddAccountParams } from '@/domain/usecases/account/add-acco
 import { LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token'
 import { AccountModel } from '@/domain/models/account'
 import { Authentication, AuthenticationParams } from '@/presentation/controllers/login/login/login-controller-protocols'
+import { faker } from '@faker-js/faker'
 
-export const mockAddAccount = (): AddAccount => {
-  class AddAccountStub implements AddAccount {
-    async add (account: AddAccountParams): Promise<AccountModel> {
-      const fakeAccount = mockAccountModel()
-      return await Promise.resolve(fakeAccount)
-    }
+export class AddAccountSpy implements AddAccount {
+  account: AddAccountParams
+  fakeAccount = mockAccountModel()
+  async add (account: AddAccountParams): Promise<AccountModel> {
+    this.account = account
+    return await Promise.resolve(this.fakeAccount)
   }
-  return new AddAccountStub()
 }
 
-export const mockAuthentication = (): Authentication => {
-  class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationParams): Promise<string> {
-      return await Promise.resolve('any_token')
-    }
+export class AuthenticationSpy implements Authentication {
+  authenticationParams: AuthenticationParams
+  token = faker.datatype.uuid()
+  async auth (authenticationParams: AuthenticationParams): Promise<string> {
+    this.authenticationParams = authenticationParams
+    return await Promise.resolve(this.token)
   }
-  return new AuthenticationStub()
 }
 
-export const mockLoadAccountByToken = (): LoadAccountByToken => {
-  class LoadAccountByTokenStub implements LoadAccountByToken {
-    async load (accessToken: string, role?: string): Promise<AccountModel> {
-      return await Promise.resolve(mockAccountModel())
-    }
+export class LoadAccountByTokenSpy implements LoadAccountByToken {
+  accountModel = mockAccountModel()
+  accessToken: string
+  role: string
+  async load (accessToken: string, role?: string): Promise<AccountModel> {
+    this.accessToken = accessToken
+    this.role = role
+    return await Promise.resolve(this.accountModel)
   }
-  return new LoadAccountByTokenStub()
 }
