@@ -1,11 +1,11 @@
+import { AuthenticationModel } from '@/domain/models/authentication'
 import {
   Authentication,
   LoadAccountByEmailRepository,
   AuthenticationParams,
   HashComparer,
   Encrypter,
-  UpdateAccessTokenRepository,
-  AuthenticationModel
+  UpdateAccessTokenRepository
 } from './db-authentication-protocols'
 
 export class DbAuthentication implements Authentication {
