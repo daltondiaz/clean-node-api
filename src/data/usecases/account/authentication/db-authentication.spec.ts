@@ -47,8 +47,8 @@ describe('DbAuthentication UseCase', () => {
   test('Should return null if LoadAccountByEmailRepository returns null', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut()
     loadAccountByEmailRepositorySpy.accountModel = null
-    const accessToken = await sut.auth(mockAuthenticationParams())
-    expect(accessToken).toBeNull()
+    const model = await sut.auth(mockAuthenticationParams())
+    expect(model).toBeNull()
   })
 
   test('Should call HashCompare with correct values', async () => {
@@ -68,8 +68,8 @@ describe('DbAuthentication UseCase', () => {
   test('Should null if HashComparer returns false', async () => {
     const { sut, hashComparerSpy } = makeSut()
     hashComparerSpy.isValid = false
-    const accessToken = await sut.auth(mockAuthenticationParams())
-    expect(accessToken).toBeNull()
+    const model = await sut.auth(mockAuthenticationParams())
+    expect(model).toBeNull()
   })
 
   test('Should call Encrypter with correct plaintext', async () => {
@@ -83,6 +83,13 @@ describe('DbAuthentication UseCase', () => {
     jest.spyOn(encrypterSpy, 'encrypt').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const promise = sut.auth(mockAuthenticationParams())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should return an AuthenticationModel on success', async () => {
+    const { sut, encrypterSpy, loadAccountByEmailRepositorySpy } = makeSut()
+    const { accessToken, name } = await sut.auth(mockAuthenticationParams())
+    expect(accessToken).toBe(encrypterSpy.ciphertext)
+    expect(name).toBe(loadAccountByEmailRepositorySpy.accountModel.name)
   })
 
   test('Should call UpdateAccessTokenRepository with correct values', async () => {

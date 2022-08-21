@@ -40,7 +40,7 @@ describe('Login Controller', () => {
 
   test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationSpy } = makeSut()
-    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.resolve(null))
+    authenticationSpy.authentiationModel = null
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(unauthorized())
   })
@@ -55,7 +55,7 @@ describe('Login Controller', () => {
   test('Should return 200 if valid credentials are provided', async () => {
     const { sut, authenticationSpy } = makeSut()
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(ok({ accessToken: authenticationSpy.token }))
+    expect(httpResponse).toEqual(ok(authenticationSpy.authentiationModel))
   })
 
   test('Should call Validation with correct value', async () => {

@@ -1,18 +1,9 @@
 import { SignUpController } from './signup-controller'
-import { HttpRequest, Authentication, AuthenticationParams } from './signup-controller-protocols'
+import { HttpRequest } from './signup-controller-protocols'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
 import { ok, badRequest, serverError, forbideen } from '@/presentation/helpers/http/http-helper'
-import { AddAccountSpy, ValidationSpy } from '@/presentation/test'
+import { AddAccountSpy, AuthenticationSpy, ValidationSpy } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
-
-export class AuthenticationSpy implements Authentication {
-  authenticationParams: AuthenticationParams
-  token = faker.datatype.uuid()
-  async auth (authenticationParams: AuthenticationParams): Promise<string> {
-    this.authenticationParams = authenticationParams
-    return await Promise.resolve(this.token)
-  }
-}
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -67,7 +58,7 @@ describe('SignUp Controller', () => {
   test('Should return 200 if valid data is provided', async () => {
     const { sut, authenticationSpy } = makeSut()
     const httpResponde = await sut.handle(mockRequest())
-    expect(httpResponde).toEqual(ok({ accessToken: authenticationSpy.token }))
+    expect(httpResponde).toEqual(ok(authenticationSpy.authentiationModel))
   })
 
   test('Should return 403 AddAccount returns null', async () => {
