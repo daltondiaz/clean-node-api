@@ -27,11 +27,11 @@ export class SignUpController implements Controller {
       if (!account) {
         return forbideen(new EmailInUseError())
       }
-      const accessToken = await this.authentication.auth({
+      const authenticationModel = await this.authentication.auth({
         email,
         password
       })
-      return ok({ accessToken })
+      return ok(authenticationModel)
     } catch (error) {
       return serverError(error)
     }
