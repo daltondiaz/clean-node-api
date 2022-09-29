@@ -3,6 +3,7 @@ import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import { Collection, ObjectId } from 'mongodb'
 import { SurveyModel } from '@/domain/models/survey'
 import { AccountModel } from '@/domain/models/account'
+import { mockAddAccountParams } from '@/domain/test'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -33,11 +34,7 @@ const makeSurvey = async (): Promise<SurveyModel> => {
 }
 
 const makeAccount = async (): Promise<AccountModel> => {
-  const res = await accountCollection.insertOne({
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password'
-  })
+  const res = await accountCollection.insertOne(mockAddAccountParams())
   // @ts-expect-error
   const accountResult: AccountModel = await accountCollection.findOne({ _id: res.insertedId })
   return MongoHelper.map(accountResult)
@@ -76,7 +73,6 @@ describe('Save Survey Mongo Repository', () => {
         surveyId: new ObjectId(survey.id),
         accountId: new ObjectId(account.id)
       })
-      console.log(surveyResult)
       expect(surveyResult).toBeTruthy()
     })
 
@@ -102,7 +98,6 @@ describe('Save Survey Mongo Repository', () => {
           accountId: new ObjectId(account.id)
         })
         .toArray()
-      console.log(surveyResult)
       expect(surveyResult).toBeTruthy()
       expect(surveyResult.length).toBe(1)
     })
