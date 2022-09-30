@@ -17,5 +17,5 @@ export const surveyResultAnswerSchema = {
       }
     }
   },
-  required: ['surveyId', 'question', 'answer', 'date']
+  required: ['surveyId', 'question', 'answer', 'date', 'isCurrentAccountAnswer']
 }
