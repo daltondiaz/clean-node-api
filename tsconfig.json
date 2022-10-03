@@ -6,14 +6,15 @@
         "esModuleInterop": true,
         "moduleResolution": "Node",
         "sourceMap": true,
-        "rootDir": "src",
+        "rootDirs": ["src","tests"],
         "baseUrl": "src",
         "paths": {
             "@/*" : ["*"]
         }
     },
     "include": [
-        "src"
+        "src",
+        "tests"
     ],
     "exclude": [
     ]
