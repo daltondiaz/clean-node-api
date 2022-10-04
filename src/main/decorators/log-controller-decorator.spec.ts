@@ -3,7 +3,7 @@ import { serverError, ok } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 import { mockAccountModel } from '@/domain/test'
 import { faker } from '@faker-js/faker'
-import { LogErrorRepositorySpy } from '@/data/test'
+import { LogErrorRepositorySpy } from '@/tests/data/mocks'
 
 export class ControllerSpy implements Controller {
   httpResponse = ok(mockAccountModel())
