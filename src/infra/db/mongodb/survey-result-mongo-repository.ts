@@ -1,8 +1,9 @@
 /* eslint-disable no-dupe-keys */
-import { LoadSurveyResultRepository } from '@/data/usecases/load-survey-result/db-load-survey-result-protocols'
-import { SaveSurveyResultParams, SaveSurveyResultRepository, SurveyResultModel } from '@/data/usecases/survey-result/save-survey-result/db-save-survey-result-protocols'
+import { LoadSurveyResultRepository, SaveSurveyResultRepository } from '@/data/protocols'
+import { SurveyResultModel } from '@/domain/models'
+import { SaveSurveyResultParams } from '@/domain/usecases'
 import { ObjectId } from 'mongodb'
-import { MongoHelper, QueryBuilder } from '../helpers'
+import { MongoHelper, QueryBuilder } from '@/infra/db/mongodb'
 import round from 'mongo-round'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {

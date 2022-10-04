@@ -1,10 +1,8 @@
-import { MongoHelper } from '../helpers/mongo-helpers'
-import { SurveyMongoRepository } from './survey-mongo-repository'
-import { Collection } from 'mongodb'
-import { mockAddAccountParams, mockAddSurveyParams } from '@/domain/test'
+import { MongoHelper, SurveyMongoRepository } from '@/infra/db/mongodb'
+import { Collection, ObjectId } from 'mongodb'
+import { mockAddAccountParams, mockAddSurveyParams } from '@/tests/domain/mocks'
 import { AccountModel } from '@/domain/models/account'
 import { faker } from '@faker-js/faker'
-import { ObjectID } from 'mongodb/node_modules/bson'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -55,7 +53,7 @@ describe('Survey Mongo Repository', () => {
       const survey = await surveyCollection.findOne({ _id: result.insertedIds[0] })
       await surveyResultCollection.insertOne({
         surveyId: survey._id,
-        accountId: new ObjectID(account.id),
+        accountId: new ObjectId(account.id),
         answer: survey.answers[0].answer,
         date: new Date()
       })
