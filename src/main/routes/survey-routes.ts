@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { adaptRoute } from '@/main/adapters/express-routes-adapter'
-import { makeAddSurveyController } from '@/main/factories/controllers/survey/add-survey/add-survey-controller-factory'
-import { makeLoadSurveysController } from '@/main/factories/controllers/survey/load-surveys/load-surveys-controller-factory'
+import { makeAddSurveyController, makeLoadSurveysController } from '@/main/factories/controllers'
 import { adminAuth } from '@/main/middlewares/admin-auth'
 import { auth } from '@/main/middlewares/auth'
 import { Router } from 'express'
