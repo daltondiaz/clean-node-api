@@ -1,9 +1,9 @@
 import { InvalidParamError } from '@/presentation/errors'
-import { forbideen, ok, serverError } from '@/presentation/helpers/http/http-helper'
-import { LoadSurveyResultController } from './load-survey-result-controller'
-import { HttpRequest } from './load-survey-result-controller-protocols'
+import { forbideen, ok, serverError } from '@/presentation/helpers'
+import { LoadSurveyResultController } from '@/presentation/controllers'
+import { HttpRequest } from '@/presentation/protocols'
 import MockDate from 'mockdate'
-import { LoadSurveyByIdSpy, LoadSurveyResultSpy } from '@/presentation/test'
+import { LoadSurveyByIdSpy, LoadSurveyResultSpy } from '@/tests/presentation/mocks'
 import { faker } from '@faker-js/faker'
 
 const mockRequest = (): HttpRequest => ({

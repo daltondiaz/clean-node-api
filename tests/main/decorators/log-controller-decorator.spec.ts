@@ -1,5 +1,5 @@
 import { LogControllerDecorator } from '@/main/decorators'
-import { serverError, ok } from '@/presentation/helpers/http/http-helper'
+import { serverError, ok } from '@/presentation/helpers'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 import { mockAccountModel } from '@/tests/domain/mocks'
 import { faker } from '@faker-js/faker'

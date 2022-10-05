@@ -1,8 +1,6 @@
-import { mockAccountModel } from '@/domain/test'
-import { AddAccount, AddAccountParams } from '@/domain/usecases/account/add-account'
-import { LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token'
+import { mockAccountModel } from '@/tests/domain/mocks'
+import { AddAccount, AddAccountParams, LoadAccountByToken, Authentication, AuthenticationParams } from '@/domain/usecases'
 import { AccountModel } from '@/domain/models/account'
-import { Authentication, AuthenticationParams } from '@/presentation/controllers/login/login/login-controller-protocols'
 import { faker } from '@faker-js/faker'
 import { AuthenticationModel } from '@/domain/models/authentication'
 

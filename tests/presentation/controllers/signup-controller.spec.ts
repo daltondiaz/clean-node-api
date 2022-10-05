@@ -1,8 +1,8 @@
-import { SignUpController } from './signup-controller'
-import { HttpRequest } from './signup-controller-protocols'
+import { SignUpController } from '@/presentation/controllers'
+import { HttpRequest } from '@/presentation/protocols'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
-import { ok, badRequest, serverError, forbideen } from '@/presentation/helpers/http/http-helper'
-import { AddAccountSpy, AuthenticationSpy, ValidationSpy } from '@/presentation/test'
+import { ok, badRequest, serverError, forbideen } from '@/presentation/helpers'
+import { AddAccountSpy, AuthenticationSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { faker } from '@faker-js/faker'
 
 const mockRequest = (): HttpRequest => ({

@@ -1,8 +1,8 @@
-import { AuthMiddleware } from './auth-middleware'
-import { HttpRequest } from './auth-middleware-protocols'
-import { forbideen, ok, serverError } from '@/presentation/helpers/http/http-helper'
+import { AuthMiddleware } from '@/presentation/middlewares'
+import { HttpRequest } from '@/presentation/protocols'
+import { forbideen, ok, serverError } from '@/presentation/helpers'
 import { AccessDeniedError } from '@/presentation/errors'
-import { LoadAccountByTokenSpy } from '../test'
+import { LoadAccountByTokenSpy } from '@/tests/presentation/mocks'
 import { faker } from '@faker-js/faker'
 
 const mockRequest = (): HttpRequest => ({

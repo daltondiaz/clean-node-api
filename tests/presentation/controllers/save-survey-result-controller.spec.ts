@@ -1,10 +1,10 @@
 import { InvalidParamError } from '@/presentation/errors'
-import { forbideen, ok, serverError } from '@/presentation/helpers/http/http-helper'
-import { SaveSurveyResultController } from './save-survey-result-controller'
-import { HttpRequest } from './save-survey-result-protocols'
+import { forbideen, ok, serverError } from '@/presentation/helpers'
+import { SaveSurveyResultController } from '@/presentation/controllers'
+import { HttpRequest } from '@/presentation/protocols'
 import MockDate from 'mockdate'
 import { faker } from '@faker-js/faker'
-import { LoadSurveyByIdSpy, SaveSurveyResultSpy } from '@/presentation/test'
+import { LoadSurveyByIdSpy, SaveSurveyResultSpy } from '@/tests/presentation/mocks'
 
 const mockRequest = (answer: string = null): HttpRequest => ({
   params: {

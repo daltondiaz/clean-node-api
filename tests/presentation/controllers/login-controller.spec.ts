@@ -1,10 +1,10 @@
-import { LoginController } from './login-controller'
-import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper'
+import { LoginController } from '@/presentation/controllers'
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers'
 import { MissingParamError } from '@/presentation/errors'
-import { HttpRequest } from './login-controller-protocols'
-import { AuthenticationSpy, ValidationSpy } from '@/presentation/test'
+import { HttpRequest } from '@/presentation/protocols'
+import { AuthenticationSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { faker } from '@faker-js/faker'
-import { mockAuthenticationParams } from '@/domain/test'
+import { mockAuthenticationParams } from '@/tests/domain/mocks'
 
 const mockRequest = (): HttpRequest => ({
   body: mockAuthenticationParams()
