@@ -53,7 +53,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 200 on save survey result with accessToken', async () => {
-      const accesToken = await makeAccessToken()
+      const accessToken = await makeAccessToken()
       const res = await surveysCollections.insertOne({
         question: 'Question',
         answers: [{
@@ -68,7 +68,7 @@ describe('Survey Routes', () => {
       const { insertedId: id } = res
       await request(app)
         .get(`/api/surveys/${id.toHexString()}/results`)
-        .set('x-access-token', accesToken)
+        .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 1'
         })
@@ -83,7 +83,7 @@ describe('Survey Routes', () => {
         .expect(403)
     })
     test('Should return 200 on save survey result with accessToken', async () => {
-      const accesToken = await makeAccessToken()
+      const accessToken = await makeAccessToken()
       const res = await surveysCollections.insertOne({
         question: 'Question',
         answers: [{
@@ -98,7 +98,7 @@ describe('Survey Routes', () => {
       const { insertedId: id } = res
       await request(app)
         .put(`/api/surveys/${id.toHexString()}/results`)
-        .set('x-access-token', accesToken)
+        .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 1'
         })

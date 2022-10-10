@@ -1,15 +1,11 @@
 import { MongoHelper } from '@/infra/db/mongodb'
 import { AccountModel } from '@/domain/models/account'
-import { AddAccountParams } from '@/domain/usecases'
-import { AddAccountRepository } from '@/data/protocols/db/account/add-account-repository'
-import { LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository'
-import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
-import { UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-access-token-repository'
+import { AddAccountRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository, UpdateAccessTokenRepository } from '@/data/protocols/db/account'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository,
   LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
-  async add (accountData: AddAccountParams): Promise<AccountModel> {
+  async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getConnection('accounts')
     const result = await accountCollection.insertOne(accountData)
     const { insertedId: id } = result
@@ -37,7 +33,7 @@ export class AccountMongoRepository implements AddAccountRepository,
   async loadByToken (accessToken: string, role?: string): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getConnection('accounts')
     const account = await accountCollection.findOne({
-      accessToken: accessToken,
+      accessToken,
       $or: [{
         role
       }, {

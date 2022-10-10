@@ -1,28 +1,17 @@
 import { LogControllerDecorator } from '@/main/decorators'
 import { serverError, ok } from '@/presentation/helpers'
-import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
+import { Controller, HttpResponse } from '@/presentation/protocols'
 import { mockAccountModel } from '@/tests/domain/mocks'
 import { faker } from '@faker-js/faker'
 import { LogErrorRepositorySpy } from '@/tests/data/mocks'
 
 export class ControllerSpy implements Controller {
   httpResponse = ok(mockAccountModel())
-  httpRequest: HttpRequest
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    this.httpRequest = httpRequest
-    return await Promise.resolve(this.httpResponse)
-  }
-}
+  request: any
 
-const mockRequest = (): HttpRequest => {
-  const password = faker.internet.password()
-  return {
-    body: {
-      name: faker.name.findName(),
-      email: faker.internet.email(),
-      password,
-      passwordConfirmation: password
-    }
+  async handle (request: any): Promise<HttpResponse> {
+    this.request = request
+    return await Promise.resolve(this.httpResponse)
   }
 }
 
@@ -52,15 +41,15 @@ const makeSut = (): SutTypes => {
 describe('LogController Decorator', () => {
   test('Should call controller handle ', async () => {
     const { sut, controllerSpy } = makeSut()
-    const httpRequest = mockRequest()
-    await sut.handle(httpRequest)
-    expect(controllerSpy.httpRequest).toEqual(httpRequest)
+    const request = faker.lorem.sentence()
+    await sut.handle(request)
+    expect(controllerSpy.request).toEqual(request)
   })
 
   test('Should return the same result of the controller', async () => {
     const { sut, controllerSpy } = makeSut()
-    const httpRequest = mockRequest()
-    const httpResponse = await sut.handle(httpRequest)
+    const request = faker.lorem.sentence()
+    const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(controllerSpy.httpResponse)
   })
 
@@ -68,8 +57,8 @@ describe('LogController Decorator', () => {
     const { sut, controllerSpy, logErrorRepositorySpy } = makeSut()
     const serverError = mockServeError()
     controllerSpy.httpResponse = serverError
-    const httpRequest = mockRequest()
-    await sut.handle(httpRequest)
+    const request = faker.lorem.sentence()
+    await sut.handle(request)
     expect(logErrorRepositorySpy.stack).toBe(serverError.body.stack)
   })
 })
