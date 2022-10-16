@@ -1,9 +1,10 @@
 import { MongoHelper } from '@/infra/db/mongodb'
-import { AddAccountRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository, UpdateAccessTokenRepository } from '@/data/protocols/db/account'
+import { AddAccountRepository, CheckAccountByEmailRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository, UpdateAccessTokenRepository } from '@/data/protocols/db/account'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository,
-  LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
+  LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository,
+  CheckAccountByEmailRepository {
   async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getConnection('accounts')
     const result = await accountCollection.insertOne(accountData)
@@ -22,6 +23,18 @@ export class AccountMongoRepository implements AddAccountRepository,
       }
     })
     return account && MongoHelper.map(account)
+  }
+
+  async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Result> {
+    const accountCollection = await MongoHelper.getConnection('accounts')
+    const account = await accountCollection.findOne({
+      email
+    }, {
+      projection: {
+        _id: 1
+      }
+    })
+    return account != null
   }
 
   async updateAccessToken (id: string, token: string): Promise<void> {
