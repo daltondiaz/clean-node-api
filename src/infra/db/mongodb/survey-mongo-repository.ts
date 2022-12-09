@@ -3,9 +3,10 @@ import { SurveyModel } from '@/domain/models/survey'
 import { LoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository'
 import { LoadSurveyByIdRepository, AddSurveyRepository } from '@/data/protocols'
 import { ObjectId } from 'mongodb'
-import { LoadSurveyById } from '@/domain/usecases'
+import { CheckSurveyById } from '@/domain/usecases'
 
-export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveysRepository, LoadSurveyByIdRepository {
+export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveysRepository, LoadSurveyByIdRepository,
+    CheckSurveyById {
   async add (surveyData: AddSurveyRepository.Params): Promise<void> {
     const surveyCollection = await MongoHelper.getConnection('surveys')
     await surveyCollection.insertOne(surveyData)
@@ -47,10 +48,23 @@ export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveysRe
     return surveys && MongoHelper.mapCollection(surveys)
   }
 
-  async loadById (id: string): Promise<LoadSurveyById.Result> {
+  async loadById (id: string): Promise<LoadSurveyByIdRepository.Result> {
     const surveyCollection = await MongoHelper.getConnection('surveys')
     // @ts-expect-error
     const survey: SurveyModel = await surveyCollection.findOne({ _id: new ObjectId(id) })
     return survey && MongoHelper.map(survey)
+  }
+
+  async checkById (id: string): Promise<CheckSurveyById.Result> {
+    const surveyCollection = await MongoHelper.getConnection('surveys')
+    // @ts-expect-error
+    const survey: SurveyModel = await surveyCollection.findOne({
+      _id: new ObjectId(id)
+    }, {
+      projection: {
+        _id: 1
+      }
+    })
+    return survey != null
   }
 }

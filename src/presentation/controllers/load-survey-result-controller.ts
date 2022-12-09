@@ -1,11 +1,12 @@
-import { LoadSurveyById, LoadSurveyResult } from '@/domain/usecases'
+import { LoadSurveyResult } from '@/domain/usecases'
+import { CheckSurveyById } from '@/domain/usecases/check-survey-by-id'
 import { InvalidParamError } from '@/presentation/errors'
 import { forbideen, ok, serverError } from '@/presentation/helpers'
 import { Controller, HttpResponse } from '@/presentation/protocols'
 
 export class LoadSurveyResultController implements Controller {
   constructor (
-    private readonly loadSurveyById: LoadSurveyById,
+    private readonly loadSurveyById: CheckSurveyById,
     private readonly loadSurveyResult: LoadSurveyResult) {
   }
 
@@ -13,8 +14,8 @@ export class LoadSurveyResultController implements Controller {
     try {
       const { surveyId } = request
       console.log(surveyId)
-      const survey = await this.loadSurveyById.loadById(surveyId)
-      if (!survey) {
+      const exists = await this.loadSurveyById.checkById(surveyId)
+      if (!exists) {
         return forbideen(new InvalidParamError('surveyId'))
       }
       const surveyResult = await this.loadSurveyResult.load(surveyId, request.accountId)
