@@ -2,6 +2,7 @@ import { MongoHelper, SurveyMongoRepository } from '@/infra/db/mongodb'
 import { Collection, ObjectId } from 'mongodb'
 import { mockAddAccountParams, mockAddSurveyParams } from '@/tests/domain/mocks'
 import { faker } from '@faker-js/faker'
+import FakeObjectId from 'bson-objectid'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -86,6 +87,29 @@ describe('Survey Mongo Repository', () => {
       const survey = await sut.loadById(_id.toHexString())
       expect(survey).toBeTruthy()
       expect(survey.id).toBeTruthy()
+    })
+
+    test('Should return null if survey does not exists', async () => {
+      const sut = makeSut()
+      const survey = await sut.loadById(new FakeObjectId().toHexString())
+      expect(survey).toBeFalsy()
+    })
+  })
+
+  describe('loadAnswers()', () => {
+    test('Should load answers on success', async () => {
+      const res = await surveyCollection.insertOne(mockAddSurveyParams())
+      const survey = await surveyCollection.findOne({ _id: res.insertedId })
+      const { insertedId: _id } = res
+      const sut = makeSut()
+      const answers = await sut.loadAnswers(_id.toHexString())
+      expect(answers).toEqual([survey.answers[0].answer, survey.answers[1].answer])
+    })
+
+    test('Should return empty if survey does not exists', async () => {
+      const sut = makeSut()
+      const answers = await sut.loadAnswers(new FakeObjectId().toHexString())
+      expect(answers).toEqual([])
     })
   })
 
